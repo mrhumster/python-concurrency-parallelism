@@ -410,3 +410,39 @@ Elapsed run time 64.46625369200001 seconds.
 1) Легко переключаться между параллелизмом и параллелизмом.
 2) Зависимым библиотекам не нужно поддерживать `asyncio` (`requests` vs `httpx`).
 3) Это чище и легче читать по сравнению с другими подходами.
+
+
+# Результаты выполнения AMD Ryzen 5 4600U
+
+```bash
+sudo lshw -C CPU
+  *-cpu                     
+       описание: ЦПУ
+       продукт: AMD Ryzen 5 4600U with Radeon Graphics
+       производитель: Advanced Micro Devices [AMD]
+       физический ID: 6
+       сведения о шине: cpu@0
+       версия: 23.96.1
+       серийный №: Null
+       слот: FP6
+       размер: 1429MHz
+       capacity: 4GHz
+       разрядность: 64 bits
+       частота: 100MHz
+       возможности: lm fpu fpu_exception wp vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp x86-64 constant_tsc rep_good nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 cqm rdt_a rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif v_spec_ctrl umip rdpid overflow_recov succor smca cpufreq
+       конфигурация: cores=6 enabledcores=6 microcode=140509446 threads=12
+
+```
+
+
+| file 				| Result					|
+|-------------------------------|-----------------------------------------------|
+| cpu-bound_sync.py 		| Elapsed run time: 13.37443888200005 seconds.	|
+| cpu-bound_parallel_1.py 	| Elapsed run time: 3.0153799019999497 seconds.	|
+| cpu-bound_parallel_2.py 	| Elapsed run time 4.327618240999982 seconds.	|
+| io-bound-sync.py		| Elapsed run time: 120.2351885600001 seconds.	|
+| io-bound_concurrent_1.py	| Elapsed run time: 23.458888632999788 seconds.	|
+| io-bound_concurrent_2.py	| Elapsed run time: 25.870434013999784 seconds. |
+| io-bound_concurrent_3.py	| Elapsed run time: 1.8479552819999299 seconds.	|
+
+
